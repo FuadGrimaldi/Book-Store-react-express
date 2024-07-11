@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDb = require("./src/db/connect");
 const bookRoute = require("./src/resources/books/books.routes");
+const handlerError = require("./src/errors/tryCatchWrapper");
 dotenv.config();
 
 const port = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 });
 // routes
 app.use("/books", bookRoute);
+app.use(handlerError);
 
 app.listen(port, () => {
   console.log(`Server running at: http://localhost:${port}`);
